@@ -1,0 +1,27 @@
+function corner = fastdetector (image)
+    image = rgb2gray(image);
+    fig1 = zeros(756);
+    fig1(4:753, 4:753) = image;
+    corner = zeros(750);
+    thresh = 0.15;
+    p = zeros(750, 750, 16);
+    p(:, :, 1) = abs(fig1(1:end-6, 4:end-3)-fig1(4:end-3, 4:end-3));
+    p(:, :, 2) = abs(fig1(1:end-6, 5:end-2)-fig1(4:end-3, 4:end-3));
+    p(:, :, 3) = abs(fig1(2:end-5, 6:end-1)-fig1(4:end-3, 4:end-3));
+    p(:, :, 4) = abs(fig1(3:end-4, 7:end)-fig1(4:end-3, 4:end-3));
+    p(:, :, 5) = abs(fig1(4:end-3, 7:end)-fig1(4:end-3, 4:end-3));
+    p(:, :, 6) = abs(fig1(5:end-2, 7:end)-fig1(4:end-3, 4:end-3));
+    p(:, :, 7) = abs(fig1(6:end-1, 6:end-1)-fig1(4:end-3, 4:end-3));
+    p(:, :, 8) = abs(fig1(7:end, 5:end-2)-fig1(4:end-3, 4:end-3));
+    p(:, :, 9) = abs(fig1(7:end, 4:end-3)-fig1(4:end-3, 4:end-3));
+    p(:, :, 10) = abs(fig1(7:end, 3:end-4)-fig1(4:end-3, 4:end-3));
+    p(:, :, 11) = abs(fig1(6:end-1, 2:end-5)-fig1(4:end-3, 4:end-3));
+    p(:, :, 12) = abs(fig1(5:end-2, 1:end-6)-fig1(4:end-3, 4:end-3));
+    p(:, :, 13) = abs(fig1(4:end-3, 1:end-6)-fig1(4:end-3, 4:end-3));
+    p(:, :, 14) = abs(fig1(3:end-4, 1:end-6)-fig1(4:end-3, 4:end-3));
+    p(:, :, 15) = abs(fig1(2:end-5, 2:end-5)-fig1(4:end-3, 4:end-3));
+    p(:, :, 16) = abs(fig1(1:end-6, 3:end-4)-fig1(4:end-3, 4:end-3));
+    p = p > thresh;
+    corner = sum(p,3);
+    corner = corner > 11;
+end
